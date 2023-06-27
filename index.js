@@ -9,7 +9,7 @@ function callback(res){
     })
 }
 
-const limit = 5;
+const limit = 1;
 function getLatLon(){
     let city = "Delhi";
     let state = "";
