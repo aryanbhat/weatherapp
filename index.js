@@ -9,42 +9,85 @@ const main_desc = document.querySelector('.main_desc');
 const desc = document.querySelector('.description');
 const inputSearch = document.querySelector('.citySearch');
 const submit = document.querySelector('.search')
-function getData(lat,lon){
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`).then(callback);
+
+function getDataByCity(cityname){
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" +
+    cityname +
+    "&units=metric&appid=" +
+    key).then(callback)
 }
 
 function callback(res){
     res.json().then((data)=>{
-        let iconcode = data.weather[0].icon;
-        let iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-        icon.src = iconurl;
+        let iconDesc = data.weather[0].main;
+        if(iconDesc === 'Mist'){
+            icon.src = "./images/mist.png";
+        }
+        else if(iconDesc == 'Clouds'){
+            icon.src = "./images/clouds.png"
+        }
+        else if(iconDesc == 'Clear'){
+            icon.src = "./images/clear.png"
+        }
+        else if(iconDesc == 'Drizzle' || iconDesc == 'Thunderstorm'){
+            icon.src = "./images/drizzle.png"
+        }
+        else if(iconDesc == 'Rain' ){
+            icon.src = "./images/rain.png"
+        }
+        else{
+            icon.src = "./images/snow.png"
+        }
         city.innerHTML = data.name;
         country.innerHTML = data.sys.country;
         main_desc.innerHTML = data.weather[0].main;
-        desc.innerHTML = data.weather[0].description;
-        temp.innerHTML = "Temp : " + data.main.temp + " &degC";
-        humidity.innerHTML = "Humidity : " + data.main.humidity;
-        wind.innerHTML = "Wind speed : " + data.wind.speed + " km/h";
-        console.log(data);
+        temp.innerHTML = Math.floor(data.main.temp) + " &degC";
+        humidity.innerHTML =data.main.humidity;
+        wind.innerHTML = data.wind.speed + " km/h";
+    }).catch((err)=>{
+        alert("city not found!");
+    });
+}
+
+
+function getfirstLocationIP(){
+    fetch("https://api.geoapify.com/v1/ipinfo?&apiKey=cd74afa22743492591790e73d9eb7c21").then((res)=>{
+        res.json().then((data)=>{
+            getDataByCity(data.city.name);
+        })
     })
 }
 
-const limit = 1;
-function getLatLon(cityname){
-    let city = cityname;
-    let state = "";
-    let country = "";
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=${limit}&appid=${key}`).then(callbackLatLon);
-}
-function callbackLatLon(res){
-    res.json().then((data)=>{
-        console.log(data);
-        getData(data[0].lat,data[0].lon);
-    })
+function getfirstLocation(){
+if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=cd74afa22743492591790e73d9eb7c21`).then((res)=>{
+            res.json().then((data)=>{
+                console.log(data);
+                getDataByCity(data.features[0].properties.city);
+            })
+        })
+      },
+      (error) => {
+        getfirstLocationIP();
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+  }
 }
 
-getLatLon();
-
-inputSearch.addEventListener('change',(e)=>{
-    getLatLon(e.target.value);    
+submit.addEventListener('click',(e)=>{
+    const loc = inputSearch.value;
+    getDataByCity(loc);
 })
+
+window.addEventListener('keyup',(e)=>{
+    if(e.key == 'Enter'){
+        getDataByCity(inputSearch.value);
+    }
+})
+getfirstLocation();
