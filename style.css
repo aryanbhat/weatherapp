@@ -6,8 +6,32 @@
 }
 .main{
     width: 80%;
-    background-color: red;
     margin: auto;
-    margin-top: 25%;
     text-align: center;
+    margin-top: 5%;
+}
+.cardtitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    margin: auto;
+    margin-top: 15%;
+    padding: 4%;
+}
+.card{
+    background-color: beige;
+    width: 60vw;
+    height: 60vh;
+    margin: auto;
+}
+.icon{
+    width: 20vw;
+}
+.summary{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width:60%;
+    margin: auto;
 }
