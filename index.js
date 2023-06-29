@@ -44,7 +44,7 @@ function callback(res){
         }
         city.innerHTML = data.name;
         country.innerHTML = data.sys.country;
-        getNews(data.sys.country);
+        // getNews(data.sys.country);
         main_desc.innerHTML = data.weather[0].main;
         temp.innerHTML = Math.floor(data.main.temp) + " &degC";
         humidity.innerHTML =data.main.humidity;
@@ -76,43 +76,43 @@ window.addEventListener('keyup',(e)=>{
     }
 })
 
-function getNews(country){
-    mainNews.innerHTML = "";
-    fetch(`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=d058e50b3e824a54a2e1db3fb4e49202`).then((res)=>{
-        res.json().then((data)=>{
-            console.log(data);
-            if(data.articles.length == 0){
-                newsMain.classList.add('invisible')
-            }
-            else{
-                newsMain.classList.remove('invisible');
-            for(let i = 0;i<data.articles.length;i++){
-                showNews(data.articles[i]);
-            }
-            }
-        })
-    })
-}
+// function getNews(country){
+//     mainNews.innerHTML = "";
+//     fetch(`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=d058e50b3e824a54a2e1db3fb4e49202`).then((res)=>{
+//         res.json().then((data)=>{
+//             console.log(data);
+//             if(data.articles.length == 0){
+//                 newsMain.classList.add('invisible')
+//             }
+//             else{
+//                 newsMain.classList.remove('invisible');
+//             for(let i = 0;i<data.articles.length;i++){
+//                 showNews(data.articles[i]);
+//             }
+//             }
+//         })
+//     })
+// }
 
 
-function showNews(data){
-    const newDiv = document.createElement('div');
-    newDiv.classList.add('newsCard');
-    const title = document.createElement('h2');
+// function showNews(data){
+//     const newDiv = document.createElement('div');
+//     newDiv.classList.add('newsCard');
+//     const title = document.createElement('h2');
 
-    const hr = document.createElement('hr');
-    hr.setAttribute('width','100%')
-    title.classList.add('newsTitle');
-    const url = document.createElement('a');
-    title.innerHTML = data.title;
-    url.setAttribute('target','blank');
-    url.innerHTML = '<i class="fa-solid fa-circle-info newsLink"></i>';
-    url.classList.add('newsLink');
-    url.setAttribute('href',data.url);
-    newDiv.appendChild(title);
-    newDiv.appendChild(url);
-    newDiv.appendChild(hr);
-    mainNews.appendChild(newDiv);
+//     const hr = document.createElement('hr');
+//     hr.setAttribute('width','100%')
+//     title.classList.add('newsTitle');
+//     const url = document.createElement('a');
+//     title.innerHTML = data.title;
+//     url.setAttribute('target','blank');
+//     url.innerHTML = '<i class="fa-solid fa-circle-info newsLink"></i>';
+//     url.classList.add('newsLink');
+//     url.setAttribute('href',data.url);
+//     newDiv.appendChild(title);
+//     newDiv.appendChild(url);
+//     newDiv.appendChild(hr);
+//     mainNews.appendChild(newDiv);
 
-}
+// }
 getfirstLocationIP();
