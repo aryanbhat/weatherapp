@@ -9,7 +9,7 @@ const main_desc = document.querySelector('.main_desc');
 const desc = document.querySelector('.description');
 const inputSearch = document.querySelector('.citySearch');
 const submit = document.querySelector('.search')
-
+const newsKey ='d058e50b3e824a54a2e1db3fb4e49202';
 function getDataByCity(cityname){
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" +
     cityname +
