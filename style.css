@@ -25,6 +25,7 @@ body {
 .searchbox {
     display: flex;
     align-items: center;
+    justify-content: start;
     margin-bottom: 20px;
 }
 
@@ -56,11 +57,9 @@ body {
     color: white;
     transform: scale(1.2) rotate(360deg);
 }
-
-.search img {
-    width: 20px;
-    height: 20px;
-    opacity: 0.6;
+i{
+    font-size: 2em;
+    color: white;
 }
 
 .cardtitle {
@@ -118,9 +117,9 @@ body {
 }
 
 .iconTemp {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
 }
 
 .humidWind {
@@ -148,4 +147,10 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.cardDetails{
+    display: none;
+}
+.active{
+    display: contents;
 }
