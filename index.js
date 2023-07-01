@@ -77,21 +77,19 @@ window.addEventListener('keyup',(e)=>{
 })
 
 function getNews(country){
-    mainNews.innerHTML = "";
-    fetch(`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=d058e50b3e824a54a2e1db3fb4e49202`).then((res)=>{
-        res.json().then((data)=>{
-            console.log(data);
-            if(data.articles.length == 0){
-                newsMain.classList.add('invisible')
-            }
-            else{
-                newsMain.classList.remove('invisible');
-            for(let i = 0;i<data.articles.length;i++){
-                showNews(data.articles[i]);
-            }
-            }
-        })
+   mainNews.innerHTML = "";
+   const options ={
+    method: "GET",
+    headers: {'Content-Type':'application/json',
+    'country':country},
+   }
+   fetch('http://localhost:3000/newsData',options).then((res)=>{
+    res.json().then((data)=>{
+        for(let i = 0;i<data.articles.length;i++){
+            showNews(data.articles[i]);
+        }
     })
+   })
 }
 
 
