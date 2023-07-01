@@ -10,7 +10,7 @@ const desc = document.querySelector('.description');
 const inputSearch = document.querySelector('.citySearch');
 const submit = document.querySelector('.search')
 const newsKey ='d058e50b3e824a54a2e1db3fb4e49202';
-
+const cardDetails = document.querySelector('.cardDetails');
 function getDataByCity(cityname){
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" +
     cityname +
@@ -61,6 +61,30 @@ function getfirstLocationIP(){
     })
 }
 
+// function getfirstLocation(){
+// if ("geolocation" in navigator) {
+//     navigator.geolocation.getCurrentPosition(
+//       (position) => {
+//         let latitude = position.coords.latitude;
+//         let longitude = position.coords.longitude;
+//         fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=cd74afa22743492591790e73d9eb7c21`).then((res)=>{
+//             res.json().then((data)=>{
+//                 console.log(data);
+//                 getDataByCity(data.features[0].properties.city);
+//             })
+//             .catch((err)=>{
+//                 getfirstLocationIP();
+//             })
+//         })
+//       },
+//       (error) => {
+//         getfirstLocationIP();
+//       }
+//     );
+//   } else {
+//     console.error("Geolocation is not supported by this browser.");
+//   }
+// }
 
 submit.addEventListener('click',(e)=>{
     const loc = inputSearch.value;
@@ -72,6 +96,24 @@ window.addEventListener('keyup',(e)=>{
         getDataByCity(inputSearch.value);
     }
 })
+
+function getNews(country){
+    mainNews.innerHTML = "";
+    fetch(`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=d058e50b3e824a54a2e1db3fb4e49202`).then((res)=>{
+        res.json().then((data)=>{
+            console.log(data);
+            if(data.articles.length == 0){
+                newsMain.classList.add('invisible')
+            }
+            else{
+                newsMain.classList.remove('invisible');
+            for(let i = 0;i<data.articles.length;i++){
+                showNews(data.articles[i]);
+            }
+            }
+        })
+    })
+}
 
 
 function showNews(data){

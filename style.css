@@ -15,7 +15,6 @@ body {
     background-color: #303030;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    text-align: center;
 }
 
 .card {
@@ -154,33 +153,4 @@ button{
 }
 .active{
     display: contents;
-}
-.invisible{
-    display: none;
-}
-.heading{
-    text-align: center;
-    color: white;
-    font-size: 2.5em;
-}
-.mainNews{
-    color: white;
-}
-.newsCard{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content:space-evenly;
-    margin-top: 2%;
-}
-.newsTitle{
-    font-size: 2em;
-}
-.newsLink{
-    font-size:25px;
-    transition: all 1s ease;
-}
-.newsLink:hover,.newsLink:active,.newsLink:focus{
-   transform: scale(1.2) rotate(360deg);
 }
